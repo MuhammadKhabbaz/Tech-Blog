@@ -1,0 +1,37 @@
+<div class="homepage-container">
+    <h1>Welcome to Tech Blog</h1>
+
+    <div class="posts-container"></div>
+        {{#if posts}}
+            {{#each posts}}
+                <div class="post">
+                    <h2><a href="/posts/{{this.id}}">{{this.title}}</a></h2>
+                    <p>{{this.blog}}</p>
+                </div>
+            {{/each}}
+    
+        {{else}}
+            <p>No posts to display. Check back later!</p>
+        {{/if}}
+    </div>
+    {{#if logged_in}}
+    <div class="new-post-container">
+        <h2>Create a New Post</h2>
+        <form action="/api/posts" method="POST" id="newPostForm">
+            <div class="form-group">
+                <label for="postTitle">Title:</label>
+                <input type="text" id="postTitle" name="title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="postContent">Content:</label>
+                <textarea id="postContent" name="blog" required></textarea>
+            </div>
+
+            <button type="submit">Submit Post</button>
+        </form>
+    </div>
+    {{/if}}
+
+</div>
+<script src="/js/post.js"></script>

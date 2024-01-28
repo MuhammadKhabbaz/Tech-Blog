@@ -1,0 +1,40 @@
+<div class="post-container">
+    <h1>{{post.title}}</h1>
+    <p class="author">Posted by {{post.user.name}}</p>
+    <p>Posted on: {{formatDate this.createdAt}}</p>
+    <div class="post-content">
+        {{post.blog}}
+    </div>
+
+    <!-- Comments Section -->
+    <div class="comments-section">
+        <h2>Comments</h2>
+        {{#if post.comments}}
+            <ul class="comments-list">
+                {{#each post.comments}}
+                    <li class="comment">
+                        <p>{{this.comment}}</p>
+                        <p>Posted on: {{formatDate this.createdAt}}</p>
+                        <span class="comment-author">- {{this.user.name}}</span>
+                    </li>
+                {{/each}}
+            </ul>
+        {{else}}
+            <p>No comments yet.</p>
+        {{/if}}
+
+        {{#if logged_in}}
+            <!-- Comment Submission Form -->
+            <form action="/api/comments" method="POST" id="commentForm">
+                <input type="hidden" id="postId" name="postId" value="{{post.id}}">
+                <textarea name="comment" id="comment" placeholder="Leave a comment..." required></textarea>
+                <button type="submit">Submit Comment</button>
+            </form>
+        {{else}}
+            <p><a href="/api/users/login">Log in</a> to leave a comment.</p>
+        {{/if}}
+    </div>
+</div>
+
+<script src="/js/comment.js"></script>
+
